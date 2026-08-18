@@ -1,7 +1,7 @@
 {
-  "name": "It's Me",
-  "short_name": "It's Me",
-  "description": "Social & Digital Media Platform — آنس می",
+  "name": "unifeel",
+  "short_name": "unifeel",
+  "description": "unifeel social and digital media platform",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#4527A0",

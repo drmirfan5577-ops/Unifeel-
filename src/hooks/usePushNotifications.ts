@@ -31,7 +31,7 @@ export function usePushNotifications(): PushNotificationHook {
       if (result === "granted") {
         toast.success("Notifications enabled! ✅");
         // Send welcome notification
-        new Notification("It's Me 💬", {
+        new Notification("unifeel 💬", {
           body: "You will now receive message & call notifications!",
           icon: "/favicon.svg",
           badge: "/favicon.svg",

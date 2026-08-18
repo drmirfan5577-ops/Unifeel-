@@ -147,9 +147,9 @@ const ChatsPage: React.FC<ChatsPageProps> = () => {
       >
         {/* Brand row */}
         <div className="flex items-center justify-center gap-2 mb-2.5">
-          <span className="text-white text-lg font-extrabold tracking-wide">It's Me</span>
+          <span className="text-white text-lg font-extrabold tracking-wide">unifeel</span>
           <span className="text-white/40 text-xs">|</span>
-          <span className="text-white/80 text-sm" style={{ fontFamily: "'Amiri',serif" }}>آنس می</span>
+          <span className="text-white/80 text-sm" style={{ fontFamily: "'Amiri',serif" }}>unifeel</span>
         </div>
 
         {/* Google-style search bar */}

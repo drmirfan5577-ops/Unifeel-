@@ -11,7 +11,7 @@ export function getUser() {
     phone: "+92 300 1234567",
     email: "doc.zaeem86@gmail.com",
     avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop",
-    status: "Hey there! I am using It's Me.",
+    status: "Hey there! I am using unifeel.",
   };
 }
 
