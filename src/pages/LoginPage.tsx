@@ -10,26 +10,26 @@ interface LoginPageProps {
 
 // ── Country codes list ──────────────────────────────────────────────────────
 const COUNTRIES = [
-  { flag: "🇵🇰", name: "Pakistan", code: "+92", iso: "PK" },
-  { flag: "🇸🇦", name: "Saudi Arabia", code: "+966", iso: "SA" },
-  { flag: "🇦", name: "UAE", code: "+971", iso: "AE" },
-  { flag: "🇬🇧", name: "United Kingdom", code: "+44", iso: "GB" },
-  { flag: "🇺🇸", name: "United States", code: "+1", iso: "US" },
-  { flag: "🇮🇳", name: "India", code: "+91", iso: "IN" },
-  { flag: "🇧🇩", name: "Bangladesh", code: "+880", iso: "BD" },
-  { flag: "🇦🇫", name: "Afghanistan", code: "+93", iso: "AF" },
-  { flag: "🇮🇷", name: "Iran", code: "+98", iso: "IR" },
-  { flag: "🇹🇷", name: "Turkey", code: "+90", iso: "TR" },
-  { flag: "🇩🇪", name: "Germany", code: "+49", iso: "DE" },
-  { flag: "🇫🇷", name: "France", code: "+33", iso: "FR" },
-  { flag: "🇨", name: "Canada", code: "+1", iso: "CA" },
-  { flag: "🇦", name: "Australia", code: "+61", iso: "AU" },
-  { flag: "🇲🇾", name: "Malaysia", code: "+60", iso: "MY" },
-  { flag: "🇶🇦", name: "Qatar", code: "+974", iso: "QA" },
-  { flag: "🇰🇼", name: "Kuwait", code: "+965", iso: "KW" },
-  { flag: "🇧", name: "Bahrain", code: "+973", iso: "BH" },
-  { flag: "🇴", name: "Oman", code: "+968", iso: "OM" },
-  { flag: "🇯🇴", name: "Jordan", code: "+962", iso: "JO" },
+  { flag: "\u{1F1F5}\u{1F1F0}", name: "Pakistan", code: "+92", iso: "PK" },
+  { flag: "\u{1F1F8}\u{1F1E6}", name: "Saudi Arabia", code: "+966", iso: "SA" },
+  { flag: "\u{1F1E6}\u{1F1EA}", name: "UAE", code: "+971", iso: "AE" },
+  { flag: "\u{1F1EC}\u{1F1E7}", name: "United Kingdom", code: "+44", iso: "GB" },
+  { flag: "\u{1F1FA}\u{1F1F8}", name: "United States", code: "+1", iso: "US" },
+  { flag: "\u{1F1EE}\u{1F1F3}", name: "India", code: "+91", iso: "IN" },
+  { flag: "\u{1F1E7}\u{1F1E9}", name: "Bangladesh", code: "+880", iso: "BD" },
+  { flag: "\u{1F1E6}\u{1F1EB}", name: "Afghanistan", code: "+93", iso: "AF" },
+  { flag: "\u{1F1EE}\u{1F1F7}", name: "Iran", code: "+98", iso: "IR" },
+  { flag: "\u{1F1F9}\u{1F1F7}", name: "Turkey", code: "+90", iso: "TR" },
+  { flag: "\u{1F1E9}\u{1F1EA}", name: "Germany", code: "+49", iso: "DE" },
+  { flag: "\u{1F1EB}\u{1F1F7}", name: "France", code: "+33", iso: "FR" },
+  { flag: "\u{1F1E8}\u{1F1E6}", name: "Canada", code: "+1", iso: "CA" },
+  { flag: "\u{1F1E6}\u{1F1FA}", name: "Australia", code: "+61", iso: "AU" },
+  { flag: "\u{1F1F2}\u{1F1FE}", name: "Malaysia", code: "+60", iso: "MY" },
+  { flag: "\u{1F1F6}\u{1F1E6}", name: "Qatar", code: "+974", iso: "QA" },
+  { flag: "\u{1F1F0}\u{1F1FC}", name: "Kuwait", code: "+965", iso: "KW" },
+  { flag: "\u{1F1E7}\u{1F1ED}", name: "Bahrain", code: "+973", iso: "BH" },
+  { flag: "\u{1F1F4}\u{1F1F2}", name: "Oman", code: "+968", iso: "OM" },
+  { flag: "\u{1F1EF}\u{1F1F4}", name: "Jordan", code: "+962", iso: "JO" },
 ];
 
 // ── Step indicator ──────────────────────────────────────────────────────────
@@ -172,10 +172,8 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
       setNormalizedPhone(data.phone || fullPhone);
       if (data.devOtp) {
         setDevOtp(data.devOtp);
-        toast.success(`OTP sent to ${data.phone || fullPhone} 📱`);
-      } else {
-        toast.success(`OTP sent to ${data.phone || fullPhone} 📱`);
       }
+      toast.success(`OTP sent to ${data.phone || fullPhone} 📱`);
       setResendTimer(60);
       setStep(2);
     } catch (err: any) {
