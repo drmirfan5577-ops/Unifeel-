@@ -63,7 +63,7 @@ const StepDot: React.FC<{ step: number; current: number; label: string }> = ({ s
 // ── OTP digit boxes ─────────────────────────────────────────────────────────
 const OtpInput: React.FC<{ value: string; onChange: (v: string) => void }> = ({ value, onChange }) => {
   const inputs = useRef<(HTMLInputElement | null)[]>([]);
-  const digits = value.padEnd(6, "").split("").slice(0, 6);
+  const digits = Array.from({ length: 6 }, (_, i) => value[i] ?? "");
 
   const handleChange = (i: number, v: string) => {
     const only = v.replace(/\D/g, "").slice(0, 1);
