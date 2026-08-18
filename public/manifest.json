@@ -1,0 +1,16 @@
+{
+  "name": "It's Me",
+  "short_name": "It's Me",
+  "description": "Social & Digital Media Platform — آنس می",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#4527A0",
+  "theme_color": "#7C4DFF",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ],
+  "screenshots": [],
+  "categories": ["social", "communication"],
+  "lang": "ur"
+}
