@@ -1,5 +1,5 @@
 [build]
-  command = "npm run build"
+  command = "npm install agora-rtc-sdk-ng && vite build"
   publish = "dist"
 
 [[redirects]]
