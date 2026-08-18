@@ -12,7 +12,7 @@ interface LoginPageProps {
 const COUNTRIES = [
   { flag: "🇵🇰", name: "Pakistan", code: "+92", iso: "PK" },
   { flag: "🇸🇦", name: "Saudi Arabia", code: "+966", iso: "SA" },
-  { flag: "🇦🇪", name: "UAE", code: "+971", iso: "AE" },
+  { flag: "🇦", name: "UAE", code: "+971", iso: "AE" },
   { flag: "🇬🇧", name: "United Kingdom", code: "+44", iso: "GB" },
   { flag: "🇺🇸", name: "United States", code: "+1", iso: "US" },
   { flag: "🇮🇳", name: "India", code: "+91", iso: "IN" },
@@ -22,13 +22,13 @@ const COUNTRIES = [
   { flag: "🇹🇷", name: "Turkey", code: "+90", iso: "TR" },
   { flag: "🇩🇪", name: "Germany", code: "+49", iso: "DE" },
   { flag: "🇫🇷", name: "France", code: "+33", iso: "FR" },
-  { flag: "🇨🇦", name: "Canada", code: "+1", iso: "CA" },
-  { flag: "🇦🇺", name: "Australia", code: "+61", iso: "AU" },
+  { flag: "🇨", name: "Canada", code: "+1", iso: "CA" },
+  { flag: "🇦", name: "Australia", code: "+61", iso: "AU" },
   { flag: "🇲🇾", name: "Malaysia", code: "+60", iso: "MY" },
   { flag: "🇶🇦", name: "Qatar", code: "+974", iso: "QA" },
   { flag: "🇰🇼", name: "Kuwait", code: "+965", iso: "KW" },
-  { flag: "🇧🇭", name: "Bahrain", code: "+973", iso: "BH" },
-  { flag: "🇴🇲", name: "Oman", code: "+968", iso: "OM" },
+  { flag: "🇧", name: "Bahrain", code: "+973", iso: "BH" },
+  { flag: "🇴", name: "Oman", code: "+968", iso: "OM" },
   { flag: "🇯🇴", name: "Jordan", code: "+962", iso: "JO" },
 ];
 
@@ -121,7 +121,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [otp, setOtp] = useState("");
   const [displayName, setDisplayName] = useState("");
-  const [bio, setBio] = useState("Hey there! I am using It's Me.");
+  const [bio, setBio] = useState("Hey there! I am using unifeel.");
   const [avatarUrl, setAvatarUrl] = useState("");
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [avatarPreview, setAvatarPreview] = useState("");
@@ -137,6 +137,9 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
   const [normalizedPhone, setNormalizedPhone] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  // Test mode: OTP box صرف تب دکھے گا جب URL کے آخر میں ?dev=1 لگا ہو
+  const showDev = new URLSearchParams(window.location.search).has("dev");
 
   const fullPhone = `${country.code}${phoneNumber.replace(/^0/, "")}`;
 
@@ -169,7 +172,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
       setNormalizedPhone(data.phone || fullPhone);
       if (data.devOtp) {
         setDevOtp(data.devOtp);
-        toast.success(`Dev mode — OTP: ${data.devOtp}`, { duration: 15000 });
+        toast.success(`OTP sent to ${data.phone || fullPhone} 📱`);
       } else {
         toast.success(`OTP sent to ${data.phone || fullPhone} 📱`);
       }
@@ -246,7 +249,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
             email: authData.fakeEmail,
             username: displayName.trim(),
             display_name: displayName.trim(),
-            bio: bio.trim() || "Hey there! I am using It's Me.",
+            bio: bio.trim() || "Hey there! I am using unifeel.",
             phone: normalizedPhone,
             phone_verified: true,
             avatar_url: finalAvatar,
@@ -268,7 +271,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
             phone: normalizedPhone,
             email: email || authData.fakeEmail,
             avatar: finalAvatar,
-            status: bio.trim() || "Hey there! I am using It's Me.",
+            status: bio.trim() || "Hey there! I am using unifeel.",
           });
 
           toast.success("Profile saved! 🎉");
@@ -342,8 +345,8 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
           style={{ background: "linear-gradient(135deg,#4527A0,#7C4DFF,#E040FB)", boxShadow: "0 20px 50px rgba(124,77,255,0.5)" }}>
           <span className="text-4xl">💬</span>
         </div>
-        <h1 className="text-3xl font-extrabold text-white tracking-tight">It's Me</h1>
-        <p className="text-purple-300 text-sm mt-0.5" style={{ fontFamily: "'Amiri',serif" }}>آنس می · Social & Digital Platform</p>
+        <h1 className="text-3xl font-extrabold text-white tracking-tight">unifeel</h1>
+        <p className="text-purple-300 text-sm mt-0.5" style={{ fontFamily: "'Amiri',serif" }}>یونی فیل · Social & Digital Platform</p>
       </div>
 
       {/* Step indicators */}
@@ -421,19 +424,6 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
                   </span>
                 ) : "Send Verification Code →"}
               </button>
-
-              {/* Demo guest button */}
-              <button
-                onClick={() => {
-                  saveUser({ name: "Demo User", phone: "+92300000000", email: "demo@itsme.app", avatar: "https://ui-avatars.com/api/?name=Demo+User&background=7C4DFF&color=fff&size=200", status: "Hey there! I am using It's Me." });
-                  localStorage.setItem("itsme_logged_in", "true");
-                  onLogin();
-                }}
-                className="w-full py-2.5 rounded-2xl text-sm font-semibold transition-all"
-                style={{ background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.6)", border: "1px solid rgba(255,255,255,0.1)" }}
-              >
-                👤 Continue as Guest (Demo)
-              </button>
             </div>
           )}
 
@@ -448,9 +438,9 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
                 <p className="text-white font-bold text-base">{normalizedPhone || fullPhone}</p>
               </div>
 
-              {devOtp && (
+              {devOtp && showDev && (
                 <div className="rounded-2xl p-3 text-center" style={{ background: "rgba(255,193,7,0.15)", border: "1px solid rgba(255,193,7,0.3)" }}>
-                  <p className="text-yellow-300 text-xs font-semibold">🧪 Dev Mode — Your OTP:</p>
+                  <p className="text-yellow-300 text-xs font-semibold">🧪 Test Mode — Your OTP:</p>
                   <p className="text-yellow-200 text-2xl font-extrabold tracking-widest mt-1">{devOtp}</p>
                   <p className="text-yellow-400/60 text-[10px] mt-1">Twilio not configured · SMS not sent</p>
                 </div>
@@ -631,7 +621,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
                   className="w-full py-4 rounded-2xl text-white font-bold text-base transition-all active:scale-95 disabled:opacity-50"
                   style={{ background: emailOtpSent && emailOtp.length === 6 ? "rgba(255,255,255,0.08)" : "linear-gradient(135deg,#7C4DFF,#E040FB)", boxShadow: emailOtpSent && emailOtp.length === 6 ? "none" : "0 8px 25px rgba(124,77,255,0.4)" }}
                 >
-                  {loading ? "Please wait…" : emailOtpSent && emailOtp.length === 6 ? "Skip Email →" : "🚀 Start Using It's Me →"}
+                  {loading ? "Please wait…" : emailOtpSent && emailOtp.length === 6 ? "Skip Email →" : "🚀 Start Using unifeel →"}
                 </button>
               </div>
             </div>
