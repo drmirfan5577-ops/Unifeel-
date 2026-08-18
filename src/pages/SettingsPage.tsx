@@ -137,8 +137,8 @@ const AboutSection: React.FC<{ onBack: () => void }> = ({ onBack }) => (
         <ChevronRight size={20} color="white" className="rotate-180" />
       </button>
       <div>
-        <h1 className="text-lg font-bold text-white">About It's Me</h1>
-        <p className="text-purple-200 text-xs">v1.0.0 · آنس می</p>
+        <h1 className="text-lg font-bold text-white">About unifeel</h1>
+        <p className="text-purple-200 text-xs">v1.0.0 · unifeel</p>
       </div>
     </div>
     <div className="relative z-10 px-4 pt-4">
@@ -146,8 +146,8 @@ const AboutSection: React.FC<{ onBack: () => void }> = ({ onBack }) => (
         <div className="w-20 h-20 rounded-3xl mx-auto mb-3 flex items-center justify-center text-4xl shadow-lg" style={{ background: "linear-gradient(135deg,#4527A0,#7C4DFF,#E040FB)" }}>
           💬
         </div>
-        <h2 className="text-2xl font-extrabold gradient-text">It's Me</h2>
-        <p className="text-purple-500 font-medium">آنس می</p>
+        <h2 className="text-2xl font-extrabold gradient-text">unifeel</h2>
+        <p className="text-purple-500 font-medium">unifeel</p>
         <p className="text-gray-400 text-sm mt-1">Version 1.0.0 · Build 2026.08.09</p>
         <p className="text-gray-400 text-xs mt-1">Social & Digital Media Platform</p>
         <div className="mt-3 p-3 bg-purple-50 rounded-xl text-xs text-purple-700 text-left">
@@ -177,7 +177,7 @@ const AboutSection: React.FC<{ onBack: () => void }> = ({ onBack }) => (
           <Download size={16} className="text-purple-400 flex-shrink-0" />
         </a>
       ))}
-      <p className="text-center text-xs text-gray-400 mt-4 mb-6">Made with ❤️ | All Rights Reserved © 2026 It's Me</p>
+      <p className="text-center text-xs text-gray-400 mt-4 mb-6">Made with ❤️ | All Rights Reserved © 2026 unifeel</p>
     </div>
   </div>
 );
@@ -196,7 +196,7 @@ const DisclaimerSection: React.FC<{ onBack: () => void }> = ({ onBack }) => (
         {
           title: "⚠️ Disclaimer",
           color: "#FF6F00",
-          content: "It's Me is an independent social media platform. All Islamic content (Quran, Hadith, Duas) is provided for educational purposes. We do not claim any endorsement from any religious authority. Users are responsible for content they share. This app is not affiliated with or a copy of any other messaging application."
+          content: "unifeel is an independent social media platform. All Islamic content (Quran, Hadith, Duas) is provided for educational purposes. We do not claim any endorsement from any religious authority. Users are responsible for content they share. This app is not affiliated with or a copy of any other messaging application."
         },
         {
           title: "🔒 Privacy Policy",
@@ -206,12 +206,12 @@ const DisclaimerSection: React.FC<{ onBack: () => void }> = ({ onBack }) => (
         {
           title: "©️ Copyright Notice",
           color: "#C2185B",
-          content: "It's Me, آنس می, and all associated logos, designs, and visual identities are original creations. All rights reserved © 2026. The app's unique gradient design system, tab layout, and visual identity are protected intellectual property. Unauthorized copying or distribution is prohibited."
+          content: "unifeel and all associated logos, designs, and visual identities are original creations. All rights reserved © 2026. The app's unique gradient design system, tab layout, and visual identity are protected intellectual property. Unauthorized copying or distribution is prohibited."
         },
         {
           title: "📋 Terms of Service",
           color: "#1565C0",
-          content: "By using It's Me, you agree to use the platform lawfully and respectfully. Prohibited: hate speech, illegal content, impersonation, spam. We reserve the right to terminate accounts violating these terms. Islamic content is to be treated with respect."
+          content: "By using unifeel, you agree to use the platform lawfully and respectfully. Prohibited: hate speech, illegal content, impersonation, spam. We reserve the right to terminate accounts violating these terms. Islamic content is to be treated with respect."
         },
         {
           title: "📖 Data Usage",

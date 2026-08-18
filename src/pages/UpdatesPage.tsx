@@ -663,7 +663,7 @@ const UpdatesPage: React.FC<UpdatesPageProps> = ({ onCall }) => {
           {!contactSearchQuery && (
             <div className="text-center py-12">
               <div className="text-5xl mb-3">👥</div>
-              <p className="text-gray-600 font-semibold">Find People on It's Me</p>
+              <p className="text-gray-600 font-semibold">Find People on unifeel</p>
               <p className="text-gray-400 text-sm mt-2">Search by name or email to connect</p>
             </div>
           )}
@@ -784,7 +784,7 @@ const UpdatesPage: React.FC<UpdatesPageProps> = ({ onCall }) => {
           <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">📢 Channels</p>
         </div>
         {[
-          { name: "It's Me Official", sub: "Latest app updates & news", emoji: "💬", color: "#7C4DFF", members: "2.1M" },
+          { name: "unifeel Official", sub: "Latest app updates & news", emoji: "💬", color: "#7C4DFF", members: "2.1M" },
           { name: "Islamic Reminders", sub: "Daily Hadith & Duas", emoji: "🕌", color: "#4CAF50", members: "850K" },
           { name: "Tech Pakistan", sub: "Technology news Pakistan", emoji: "🖥️", color: "#2196F3", members: "340K" },
         ].map((ch) => (

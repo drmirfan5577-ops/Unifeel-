@@ -73,7 +73,7 @@ Deno.serve(async (req: Request) => {
         const body = new URLSearchParams({
           From: twilioPhone,
           To: normalizedPhone,
-          Body: `Your It's Me (آنس می) verification code is: ${otp}\n\nThis code expires in 10 minutes. Do not share with anyone.`,
+          Body: `Your unifeel verification code is: ${otp}\n\nThis code expires in 10 minutes. Do not share with anyone.`,
         });
 
         const response = await fetch(twilioUrl, {

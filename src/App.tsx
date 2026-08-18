@@ -144,7 +144,7 @@ const App: React.FC = () => {
         {/* News ticker */}
         <div className="absolute bottom-0 left-0 right-0 py-2 overflow-hidden" style={{ background: "rgba(69,39,160,0.92)", borderTop: "1.5px solid rgba(124,77,255,0.4)" }}>
           <div className="ticker-content text-white text-sm font-medium px-4">
-            ✨ It's Me | آنس می &nbsp;|&nbsp; Social &amp; Digital Media Platform &nbsp;|&nbsp;
+            ✨ unifeel &nbsp;|&nbsp; Social &amp; Digital Media Platform &nbsp;|&nbsp;
             📖 Islamic Hub: Quran • Hadith • Azkaar &nbsp;|&nbsp;
             💬 Real-time Encrypted Messaging &nbsp;|&nbsp;
             📹 Voice & Video Calls &nbsp;|&nbsp;

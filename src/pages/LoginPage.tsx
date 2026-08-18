@@ -121,7 +121,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [otp, setOtp] = useState("");
   const [displayName, setDisplayName] = useState("");
-  const [bio, setBio] = useState("Hey there! I am using It's Me.");
+  const [bio, setBio] = useState("Hey there! I am using unifeel.");
   const [avatarUrl, setAvatarUrl] = useState("");
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [avatarPreview, setAvatarPreview] = useState("");
@@ -246,7 +246,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
             email: authData.fakeEmail,
             username: displayName.trim(),
             display_name: displayName.trim(),
-            bio: bio.trim() || "Hey there! I am using It's Me.",
+            bio: bio.trim() || "Hey there! I am using unifeel.",
             phone: normalizedPhone,
             phone_verified: true,
             avatar_url: finalAvatar,
@@ -268,7 +268,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
             phone: normalizedPhone,
             email: email || authData.fakeEmail,
             avatar: finalAvatar,
-            status: bio.trim() || "Hey there! I am using It's Me.",
+            status: bio.trim() || "Hey there! I am using unifeel.",
           });
 
           toast.success("Profile saved! 🎉");
@@ -342,8 +342,8 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
           style={{ background: "linear-gradient(135deg,#4527A0,#7C4DFF,#E040FB)", boxShadow: "0 20px 50px rgba(124,77,255,0.5)" }}>
           <span className="text-4xl">💬</span>
         </div>
-        <h1 className="text-3xl font-extrabold text-white tracking-tight">It's Me</h1>
-        <p className="text-purple-300 text-sm mt-0.5" style={{ fontFamily: "'Amiri',serif" }}>آنس می · Social & Digital Platform</p>
+        <h1 className="text-3xl font-extrabold text-white tracking-tight">unifeel</h1>
+        <p className="text-purple-300 text-sm mt-0.5" style={{ fontFamily: "'Amiri',serif" }}>unifeel · Social & Digital Platform</p>
       </div>
 
       {/* Step indicators */}
@@ -425,7 +425,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
               {/* Demo guest button */}
               <button
                 onClick={() => {
-                  saveUser({ name: "Demo User", phone: "+92300000000", email: "demo@itsme.app", avatar: "https://ui-avatars.com/api/?name=Demo+User&background=7C4DFF&color=fff&size=200", status: "Hey there! I am using It's Me." });
+                  saveUser({ name: "Demo User", phone: "+92300000000", email: "demo@itsme.app", avatar: "https://ui-avatars.com/api/?name=Demo+User&background=7C4DFF&color=fff&size=200", status: "Hey there! I am using unifeel." });
                   localStorage.setItem("itsme_logged_in", "true");
                   onLogin();
                 }}
@@ -631,7 +631,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
                   className="w-full py-4 rounded-2xl text-white font-bold text-base transition-all active:scale-95 disabled:opacity-50"
                   style={{ background: emailOtpSent && emailOtp.length === 6 ? "rgba(255,255,255,0.08)" : "linear-gradient(135deg,#7C4DFF,#E040FB)", boxShadow: emailOtpSent && emailOtp.length === 6 ? "none" : "0 8px 25px rgba(124,77,255,0.4)" }}
                 >
-                  {loading ? "Please wait…" : emailOtpSent && emailOtp.length === 6 ? "Skip Email →" : "🚀 Start Using It's Me →"}
+                  {loading ? "Please wait…" : emailOtpSent && emailOtp.length === 6 ? "Skip Email →" : "🚀 Start Using unifeel →"}
                 </button>
               </div>
             </div>

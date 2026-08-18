@@ -46,7 +46,7 @@ const AdminPanelPage: React.FC<AdminPanelPageProps> = ({ onBack }) => {
             <Shield size={38} color="white" />
           </div>
           <h1 className="text-2xl font-extrabold text-white mb-1">Admin Panel</h1>
-          <p className="text-orange-300 text-sm mb-1">It's Me — Control Center</p>
+          <p className="text-orange-300 text-sm mb-1">unifeel — Control Center</p>
           <p className="text-white/30 text-xs mb-8">Strongly Password Protected</p>
           <div className="w-full max-w-xs">
             <div className="relative mb-3">
@@ -456,7 +456,7 @@ const AdminSection: React.FC<{ section: string; onBack: () => void }> = ({ secti
         <div className="space-y-3">
           <div className="bg-green-50 rounded-2xl p-5 border border-green-200 text-center">
             <div className="text-5xl mb-3">📲</div>
-            <p className="font-bold text-green-800 text-base mb-2">Install It's Me</p>
+            <p className="font-bold text-green-800 text-base mb-2">Install unifeel</p>
             <p className="text-green-700 text-sm mb-4">Native app experience — no Play Store needed</p>
             <button onClick={() => {
               const p = (window as any).deferredInstallPrompt;

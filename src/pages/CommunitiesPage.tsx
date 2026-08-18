@@ -9,8 +9,8 @@ interface CommunitiesPageProps {
 const communities = [
   {
     id: "1",
-    name: "It's Me Official",
-    description: "Official community for It's Me app users",
+    name: "unifeel Official",
+    description: "Official community for unifeel app users",
     members: "12.4K",
     avatar: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=80&h=80&fit=crop",
     groups: 5,
