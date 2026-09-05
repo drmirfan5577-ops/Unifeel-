@@ -1,7 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber, ApplicationVerifier } from 'firebase/auth';
 
-// آپ کی Firebase Config (آپ کی اسکرین شاٹ سے)
 const firebaseConfig = {
   apiKey: "AIzaSyBirtqIZoybUZz_d30Er_TZshbl9dyyXZo",
   authDomain: "unifeel--esoneworld.firebaseapp.com",
@@ -11,11 +10,9 @@ const firebaseConfig = {
   appId: "1:801094166684:web:c9ea55ffe4b964ad23a559"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 
-// Setup reCAPTCHA verifier
 export let recaptchaVerifier: RecaptchaVerifier | null = null;
 
 export function setupRecaptcha(containerId: string = 'recaptcha-container'): ApplicationVerifier {
@@ -30,7 +27,6 @@ export function setupRecaptcha(containerId: string = 'recaptcha-container'): App
   return recaptchaVerifier;
 }
 
-// Send OTP
 export async function sendPhoneOTP(phoneNumber: string): Promise<void> {
   const appVerifier = setupRecaptcha();
   
@@ -43,7 +39,6 @@ export async function sendPhoneOTP(phoneNumber: string): Promise<void> {
   }
 }
 
-// Verify OTP
 export async function verifyPhoneOTP(otp: string): Promise<any> {
   const confirmationResult = (window as any).firebaseConfirmationResult;
   
@@ -54,8 +49,6 @@ export async function verifyPhoneOTP(otp: string): Promise<any> {
   try {
     const result = await confirmationResult.confirm(otp);
     const user = result.user;
-    
-    // Clean up
     (window as any).firebaseConfirmationResult = null;
     
     return {
