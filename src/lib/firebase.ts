@@ -2,7 +2,7 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber, ApplicationVerifier, ConfirmationResult } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBirtqIZoybUZz_d30Er_TZshbl9dyyXZo",
+  apiKey: "AIzaSyBirtqTZoybUZz_d30Er_TZshbl9dyyXZo",
   authDomain: "unifeel--esoneworld.firebaseapp.com",
   projectId: "unifeel--esoneworld",
   storageBucket: "unifeel--esoneworld.firebasestorage.app",
