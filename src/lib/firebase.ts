@@ -1,13 +1,14 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber, ApplicationVerifier } from 'firebase/auth';
 
+// آپ کی Firebase Config (آپ کی اسکرین شاٹ سے)
 const firebaseConfig = {
-  apiKey: "آپ_کی_API_KEY",
-  authDomain: "آپ_کا_PROJECT_ID.firebaseapp.com",
-  projectId: "آپ_کا_PROJECT_ID",
-  storageBucket: "آپ_کا_PROJECT_ID.appspot.com",
-  messagingSenderId: "آپ_کا_MESSAGING_SENDER_ID",
-  appId: "آپ_کا_APP_ID",
+  apiKey: "AIzaSyBirtqIZoybUZz_d30Er_TZshbl9dyyXZo",
+  authDomain: "unifeel--esoneworld.firebaseapp.com",
+  projectId: "unifeel--esoneworld",
+  storageBucket: "unifeel--esoneworld.firebasestorage.app",
+  messagingSenderId: "801094166684",
+  appId: "1:801094166684:web:c9ea55ffe4b964ad23a559"
 };
 
 // Initialize Firebase
@@ -29,12 +30,12 @@ export function setupRecaptcha(containerId: string = 'recaptcha-container'): App
   return recaptchaVerifier;
 }
 
-export async function sendPhoneOTP(phoneNumber: string, otp: string): Promise<void> {
+// Send OTP
+export async function sendPhoneOTP(phoneNumber: string): Promise<void> {
   const appVerifier = setupRecaptcha();
   
   try {
     const confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, appVerifier);
-    // Store confirmation result for verification
     (window as any).firebaseConfirmationResult = confirmationResult;
   } catch (error) {
     console.error('Error sending OTP:', error);
@@ -42,6 +43,7 @@ export async function sendPhoneOTP(phoneNumber: string, otp: string): Promise<vo
   }
 }
 
+// Verify OTP
 export async function verifyPhoneOTP(otp: string): Promise<any> {
   const confirmationResult = (window as any).firebaseConfirmationResult;
   
