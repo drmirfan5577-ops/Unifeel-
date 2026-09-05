@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { auth, setupRecaptcha, sendPhoneOTP, verifyPhoneOTP } from "@/lib/firebase";
 import { supabase } from "@/lib/supabase";
 import { toast } from "sonner";
 import { saveUser } from "@/lib/store";
@@ -29,25 +30,25 @@ const btn: React.CSSProperties = {
 
 const COUNTRIES = [
   { code: "+92", flag: "🇵🇰", name: "Pakistan" },
-  { code: "+1", flag: "🇺🇸", name: "USA" },
+  { code: "+1", flag: "🇸", name: "USA" },
   { code: "+44", flag: "🇬🇧", name: "UK" },
   { code: "+91", flag: "🇮🇳", name: "India" },
   { code: "+966", flag: "🇸🇦", name: "Saudi Arabia" },
   { code: "+971", flag: "🇦🇪", name: "UAE" },
-  { code: "+974", flag: "🇶🇦", name: "Qatar" },
-  { code: "+965", flag: "🇰🇼", name: "Kuwait" },
+  { code: "+974", flag: "🇶", name: "Qatar" },
+  { code: "+965", flag: "🇼", name: "Kuwait" },
   { code: "+973", flag: "🇧🇭", name: "Bahrain" },
-  { code: "+968", flag: "🇴🇲", name: "Oman" },
+  { code: "+968", flag: "🇴", name: "Oman" },
   { code: "+20", flag: "🇪🇬", name: "Egypt" },
   { code: "+90", flag: "🇹🇷", name: "Turkey" },
   { code: "+98", flag: "🇮🇷", name: "Iran" },
-  { code: "+49", flag: "🇩🇪", name: "Germany" },
-  { code: "+33", flag: "🇫🇷", name: "France" },
+  { code: "+49", flag: "🇩", name: "Germany" },
+  { code: "+33", flag: "🇷", name: "France" },
   { code: "+86", flag: "🇨🇳", name: "China" },
   { code: "+81", flag: "🇯🇵", name: "Japan" },
-  { code: "+82", flag: "🇰🇷", name: "South Korea" },
+  { code: "+82", flag: "🇰", name: "South Korea" },
   { code: "+61", flag: "🇦🇺", name: "Australia" },
-  { code: "+55", flag: "🇧🇷", name: "Brazil" },
+  { code: "+55", flag: "🇷", name: "Brazil" },
 ];
 
 const LoginPage = ({ onLogin }: { onLogin: () => void }) => {
@@ -56,16 +57,14 @@ const LoginPage = ({ onLogin }: { onLogin: () => void }) => {
   const [showCountryPicker, setShowCountryPicker] = useState(false);
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
-  const [devOtp, setDevOtp] = useState("");
   const [normPhone, setNormPhone] = useState("");
   const [name, setName] = useState("");
   const [bio, setBio] = useState("");
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [avatarPreview, setAvatarPreview] = useState("");
-  const [auth, setAuth] = useState<{ fakeEmail: string; tempPassword: string; userId: string } | null>(null);
+  const [firebaseUser, setFirebaseUser] = useState<any>(null);
   const [busy, setBusy] = useState(false);
 
-  const showDev = new URLSearchParams(window.location.search).has("dev");
   const fullPhone = countryCode + phone.replace(/^0/, "");
 
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -87,20 +86,15 @@ const LoginPage = ({ onLogin }: { onLogin: () => void }) => {
       const normalized = fullPhone;
       setNormPhone(normalized);
 
-      const response = await fetch("/.netlify/functions/send-otp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone: normalized }),
-      });
+      // Format phone for Firebase (+923001234567)
+      const firebasePhone = normalized.startsWith("+") ? normalized : `+${normalized}`;
       
-      const data = await response.json();
-      const error = !response.ok ? new Error(data.error || "Failed to send OTP") : null;
-
-      if (error) throw error;
-      if (data?.devOtp) setDevOtp(data.devOtp);
-      toast.success("OTP sent!");
+      await sendPhoneOTP(firebasePhone, otp);
+      
+      toast.success("OTP sent! Check your phone");
       setStep(2);
     } catch (err: any) {
+      console.error('Send OTP error:', err);
       toast.error(err.message || "Failed to send OTP");
     } finally {
       setBusy(false);
@@ -108,30 +102,21 @@ const LoginPage = ({ onLogin }: { onLogin: () => void }) => {
   };
 
   const verifyOtp = async () => {
-    if (!otp.trim() || otp.length < 4) {
-      toast.error("Please enter the OTP");
+    if (!otp.trim() || otp.length < 6) {
+      toast.error("Please enter the 6-digit OTP");
       return;
     }
 
     setBusy(true);
     try {
-      const response = await fetch("/.netlify/functions/verify-otp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone: normPhone, otp }),
-      });
+      const result = await verifyPhoneOTP(otp);
       
-      const data = await response.json();
-      const error = !response.ok ? new Error(data.error || "OTP verification failed") : null;
-
-      if (error) throw error;
-      if (!data?.success) throw new Error(data?.message || "Invalid OTP");
-
-      setAuth({ fakeEmail: data.fakeEmail, tempPassword: data.tempPassword, userId: data.userId });
+      setFirebaseUser(result);
       toast.success("Phone verified!");
       setStep(3);
     } catch (err: any) {
-      toast.error(err.message || "OTP verification failed");
+      console.error('Verify OTP error:', err);
+      toast.error(err.message || "Invalid OTP");
     } finally {
       setBusy(false);
     }
@@ -143,24 +128,18 @@ const LoginPage = ({ onLogin }: { onLogin: () => void }) => {
       return;
     }
 
-    if (!auth) {
+    if (!firebaseUser) {
       toast.error("Session lost. Please restart.");
       return;
     }
 
     setBusy(true);
     try {
-      const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
-        email: auth.fakeEmail,
-        password: auth.tempPassword,
-      });
-
-      if (signInError) throw signInError;
-
       let avatarUrl = "";
-      if (avatarFile && signInData.user) {
+      
+      if (avatarFile) {
         const ext = avatarFile.name.split(".").pop();
-        const path = `${signInData.user.id}/avatar.${ext}`;
+        const path = `${firebaseUser.userId}/avatar.${ext}`;
         const { error: uploadError } = await supabase.storage
           .from("itsme-media")
           .upload(path, avatarFile, { upsert: true });
@@ -171,15 +150,23 @@ const LoginPage = ({ onLogin }: { onLogin: () => void }) => {
         }
       }
 
+      // Save to Supabase user_profiles
       const { error: profileError } = await supabase
         .from("user_profiles")
-        .update({ display_name: name, bio, avatar_url: avatarUrl || undefined })
-        .eq("id", auth.userId);
+        .upsert({
+          id: firebaseUser.userId,
+          phone: normPhone,
+          display_name: name,
+          bio,
+          avatar_url: avatarUrl || undefined,
+          username: normPhone,
+          phone_verified: true,
+        }, { onConflict: "id" });
 
       if (profileError) throw profileError;
 
       const userObj = {
-        id: auth.userId,
+        id: firebaseUser.userId,
         phone: normPhone,
         display_name: name,
         bio,
@@ -218,6 +205,9 @@ const LoginPage = ({ onLogin }: { onLogin: () => void }) => {
 
   return (
     <div style={containerStyle}>
+      {/* Hidden reCAPTCHA container */}
+      <div id="recaptcha-container" style={{ display: 'none' }} />
+
       <div style={cardStyle}>
         <div style={{ textAlign: "center", marginBottom: 32 }}>
           <div style={{
@@ -294,19 +284,9 @@ const LoginPage = ({ onLogin }: { onLogin: () => void }) => {
               Code sent to {normPhone}
             </p>
 
-            {devOtp && (
-              <div style={{
-                background: "rgba(124,77,255,0.15)", border: "1px solid rgba(124,77,255,0.4)",
-                borderRadius: 12, padding: "10px 14px", marginBottom: 16, textAlign: "center",
-              }}>
-                <span style={{ color: "#E040FB", fontSize: 12, display: "block", marginBottom: 4 }}>Dev Mode — OTP</span>
-                <span style={{ color: "white", fontSize: 28, fontWeight: 700, letterSpacing: 8 }}>{devOtp}</span>
-              </div>
-            )}
-
             <input
               style={{ ...inp, marginBottom: 16, textAlign: "center", fontSize: 28, letterSpacing: 8, fontWeight: 700 }}
-              placeholder="0 0 0 0"
+              placeholder="0 0 0 0 0 0"
               value={otp}
               onChange={e => setOtp(e.target.value.replace(/\D/g, "").slice(0, 6))}
               type="tel"
