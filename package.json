@@ -57,6 +57,7 @@
     "crypto-js": "^4.2.0",
     "date-fns": "^3.6.0",
     "embla-carousel-react": "^8.3.0",
+    "firebase": "^10.13.0",
     "framer-motion": "^12.23.24",
     "hls.js": "^1.6.13",
     "input-otp": "^1.2.4",
@@ -107,4 +108,3 @@
     "vite": "^5.4.1"
   }
 }
-"firebase": "^10.13.0",
